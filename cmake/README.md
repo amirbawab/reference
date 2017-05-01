@@ -32,3 +32,22 @@
 **cmake_minimum_required(VERSION 3.5)**: Set the minimum cmake version required.
 
 **set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")**: Add `-std=c++11` flag.
+
+### Add a subproject to a project:  
+#### CMakeLists.txt of the project
+```
+# Link CMakeLists.txt to auto-build
+add_subdirectory(my_subproject)
+
+# Include header files of the subproject
+include_directories(my_subproject/include)
+
+# Link libmy_subproject.a library to the project executbale
+target_link_libraries(my_exec my_subproject)
+```
+
+#### CMakeLists.txt of the subproject
+```
+# Create a library target
+add_library(my_subproject src/file.cpp)
+```

@@ -24,6 +24,8 @@ add eax,edx # eax += edx
 add esi,11b # esi += 3
 sub eax,edx # eax -= edx
 sub esi,11b # esi -= 3
+lea eax, [eax+1]        # eax = eax + 1
+lea eax, [eax+2*edx]    # eax = eax + 2 * edx
 ```
 
 ## GDB commands (inline for grep)

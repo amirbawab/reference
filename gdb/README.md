@@ -26,6 +26,8 @@ sub eax,edx # eax -= edx
 sub esi,11b # esi -= 3
 lea eax, [eax+1]        # eax = eax + 1
 lea eax, [eax+2*edx]    # eax = eax + 2 * edx
+push eax    # Push eax val into stack (updates e.g. rsp - 4)
+pop eax     # Stores and pop top of stack into eax (updates e.g. rsp + 4)
 ```
 
 ## GDB commands (inline for grep)

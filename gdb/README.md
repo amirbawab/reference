@@ -1,70 +1,41 @@
 # GDB reference sheet
 
-## x64/x86 Registers
+## x64/x86 Registers (inline for grep)
 *x64 is compatible with x86 processor family but supports 64-bit instruction set*
 
 ```
-+-------------------------------------------------------------------------+ <-+
-|                                 %rax 64-bit                             |   | x64
-+------------------------------------+------------------------------------+ <-+--+
-|                                    |             %eax 32-bit            |   |  |
-+------------------------------------+------------------+-----------------+   |  |
-|                                    |                  |     %ax 16-bit  |   |  | x82
-+------------------------------------+------------------+--------+--------+   |  |
-|                                    |                  | %ah 8b | %al 8b |   |  |
-+------------------------------------+------------------+-----------------+ <-+--+
+%rax [(64)], %eax [32:(32)], %ax [48:(16)], %ah  [46:(8):8], %al  [46:8:(8)]
+%rcx [(64)], %ecx [32:(32)], %cx [48:(16)], %ch  [46:(8):8], %cl  [46:8:(8)]
+%rdx [(64)], %edx [32:(32)], %dx [48:(16)], %dh  [46:(8):8], %dl  [46:8:(8)]
+%rbx [(64)], %ebx [32:(32)], %bx [48:(16)], %bh  [46:(8):8], %bl  [46:8:(8)]
+%rsi [(64)], %esi [32:(32)], %si [48:(16)], %sih [46:(8):8], %sil [46:8:(8)] # Source index
+%rdi [(64)], %edi [32:(32)], %di [48:(16)], %dih [46:(8):8], %dil [46:8:(8)] # Destination index
+%rsp [(64)], %esp [32:(32)], %sp [48:(16)], %sph [46:(8):8], %spl [46:8:(8)] # Stack pointer
+%rbp [(64)], %ebp [32:(32)], %bp [48:(16)], %bph [46:(8):8], %bpl [46:8:(8)] # Base pointer
+%rip [64-bit cpu], %eip [32-bit cpu], %ip [16-bit cpu] # Instruction pointer, program counter
+%r8, %r9, %r10, %r11, %r12, %r13, %r14, %r15 [64-bit]  # For x64
 ```
 
-```
-+---------------+-----------------+-----------+---------+------------------------+
-|  8-byte (64)  | Bytes 5-8 (32)  | Bytes 7-9 | Byte 8  |  Definition            |
-+---------------+-----------------+-----------+---------+------------------------+
-| %rax          | %eax            | %ax       | %al     |                        |
-+---------------+-----------------+-----------+---------+------------------------+
-| %rcx          | %ecx            | %cx       | %cl     |                        |
-+---------------+-----------------+-----------+---------+------------------------+
-| %rdx          | %edx            | %dx       | %dl     |                        |
-+---------------+-----------------+-----------+---------+------------------------+
-| %rbx          | %ebx            | %bx       | %bl     |                        |
-+---------------+-----------------+-----------+---------+------------------------+
-| %rsi          | %esi            | %si       | %sil    | Source index           |
-+---------------+-----------------+-----------+---------+------------------------+
-| %rdi          | %edi            | %di       | %dil    | Destination index      |
-+---------------+-----------------+-----------+---------+------------------------+
-| %rsp          | %esp            | %sp       | %spl    | Stack pointer          |
-+---------------+-----------------+-----------+---------+------------------------+
-| %rbp          | %ebp            | %bp       | %bpl    | Base pointer           |
-+---------------+-----------------+-----------+---------+------------------------+
-| %rip          | %eip            | %ip       |         | Instruction pointer    |
-+---------------+-----------------+-----------+---------+------------------------+
-| %r8           | %r8d            | %r8w      | %r8b    |                        |
-+---------------+-----------------+-----------+---------+------------------------+
-| ....          |                 |           |         |                        |
-+---------------+-----------------+-----------+---------+------------------------+
-| %r15          | %r15d           | %r15w     | %r15b   |                        |
-+---------------+-----------------+-----------+---------+------------------------+
-```
-
-## x86 instructions
-### mov dest,src
+## x86 instructions (inline for grep)
 ```
 mov eax,fffh # Store 0xfff into eax
 mov ecx,edx  # Store val in edx into ecx
-```
-
-### add dest,src
-```
 add eax,edx # eax += edx
 add esi,11b # esi += 3
-```
-
-### sub dest,src
-```
 sub eax,edx # eax -= edx
 sub esi,11b # esi -= 3
 ```
 
-## GDB commands
-x/i $pc     # Examin (instruction format) at program counter
-x/i $rip    # Examin (instruction format) at program counter (64-bit)
-x/i $eip    # Examin (instruction format) at program counter (32-bit)
+## GDB commands (inline for grep)
+```
+p/x $eax      # Print value stored in register eax in hex format
+p/d my_var    # Print value stored in variable my_var in dec format
+x/5i $rip     # Examine content of the 5 memory addr starting from addr stored at $rip, in instruction format
+disassemble func1    # Disassemble function func1
+x/i $pc     # Examine (instruction format) at program counter
+x/i $rip    # Examine (instruction format) at program counter (64-bit)
+x/i $eip    # Examine (instruction format) at program counter (32-bit)
+info registers  # Show all registers with their contents
+info frame      # Show information about current frame
+info locals     # Show local variables in current scope
+```

@@ -50,4 +50,15 @@ mov eax,fffh # Store 0xfff into eax
 mov ecx,edx  # Store val in edx into ecx
 ```
 
-### mov 
+### add dest,src
+``
+add eax,edx # eax += edx
+add esi,11b # esi += 3
+```
+
+### sub dest,src
+``
+sub eax,edx # eax -= edx
+sub esi,11b # esi -= 3
+```
+

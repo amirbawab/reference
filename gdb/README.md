@@ -35,6 +35,8 @@
 +---------------+-----------------+-----------+---------+------------------------+
 | %rbp          | %ebp            | %bp       | %bpl    | Base pointer           |
 +---------------+-----------------+-----------+---------+------------------------+
+| %rip          | %eip            | %ip       |         | Instruction pointer    |
++---------------+-----------------+-----------+---------+------------------------+
 | %r8           | %r8d            | %r8w      | %r8b    |                        |
 +---------------+-----------------+-----------+---------+------------------------+
 | ....          |                 |           |         |                        |
@@ -51,14 +53,18 @@ mov ecx,edx  # Store val in edx into ecx
 ```
 
 ### add dest,src
-``
+```
 add eax,edx # eax += edx
 add esi,11b # esi += 3
 ```
 
 ### sub dest,src
-``
+```
 sub eax,edx # eax -= edx
 sub esi,11b # esi -= 3
 ```
 
+## GDB commands
+x/i $pc     # Examin (instruction format) at program counter
+x/i $rip    # Examin (instruction format) at program counter (64-bit)
+x/i $eip    # Examin (instruction format) at program counter (32-bit)

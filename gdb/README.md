@@ -1,5 +1,39 @@
 # GDB reference sheet
 
+## x86 memory
+### Big image
+```
+0xfff
++------------+
+|            | < Grow down
+|    Stack   | < Push backward 
+|            | < (decreasing addr)
+|vvvvvvvvvvvv|
+|            |
+|^^^^^^^^^^^^|
+|            |
+|    Heap    | < Grow up
+|            |
++------------+
+|    Code    |
++------------+
+0x000
+```
+
+### Stack buffer
+```
++------------+
+|   .......  | <
++------------+ <
+|   ......   | < // char buf[256]
+|   ......   | < Buffer index are 
+|   buf[1]   | < opposite to stack
+|   buf[0]   | < growth direction
++------------+
+/!\ | Buffer overflow can overwrite previous stack
+    | information
+```
+
 ## x64/x86 Registers (inline for grep)
 *x64 is compatible with x86 processor family but supports 64-bit instruction set*
 
